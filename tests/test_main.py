@@ -25,3 +25,16 @@ def test_auth_page_actions(selenium):
 
     assert page.is_element_present("profile", timeout=3)
     assert page.profile.text.strip().lower() == "skill factory"
+
+
+def test_hover_profile_menu(authorized_driver):
+    page = MainPage(authorized_driver)
+    page.open()
+
+    assert not page.is_element_present("profile_menu", timeout=3)
+
+    actions = ActionChains(page._driver)
+    actions.move_to_element(page.profile)
+    actions.perform()
+
+    assert page.is_element_present("profile_menu")
