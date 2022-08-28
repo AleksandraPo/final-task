@@ -1,0 +1,2 @@
+pytest-selenium==3.0.0
+webium==1.2.1
