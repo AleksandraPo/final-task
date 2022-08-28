@@ -1,4 +1,5 @@
 import pytest
+from selenium.webdriver import ActionChains
 
 import config
 from pages.auth_page import AuthPage
@@ -22,6 +23,21 @@ def test_auth_page(selenium):
     page.username.send_keys(config.USERNAME)
     page.password.send_keys(config.PASSWORD)
     page.login.click()
+
+    assert page.is_element_present("name", timeout=3)
+    assert page.name.text.strip().lower() == "skill factory"
+
+
+def test_auth_page_actions(selenium):
+    page = AuthPage(selenium)
+    page.open()
+    actions = ActionChains(page._driver)
+    actions.click(page.enter)
+    actions.click(page.by_email)
+    actions.send_keys_to_element(page.username, config.USERNAME)
+    actions.send_keys_to_element(page.password, config.PASSWORD)
+    actions.click(page.login)
+    actions.perform()
 
     assert page.is_element_present("name", timeout=3)
     assert page.name.text.strip().lower() == "skill factory"
