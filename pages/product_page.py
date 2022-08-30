@@ -1,9 +1,5 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
-from webium import BasePage, Find, Finds
-from urllib.parse import urljoin
-
-import config
+from webium import BasePage, Find
 
 
 class ProductPage(BasePage):

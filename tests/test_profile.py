@@ -1,9 +1,3 @@
-import time
-
-from selenium.webdriver import ActionChains
-
-import config
-from pages.main_page import MainPage
 from pages.profile_page import ProfilePage
 
 

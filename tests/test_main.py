@@ -1,5 +1,3 @@
-import time
-
 from selenium.webdriver import ActionChains
 
 import config
@@ -41,7 +39,7 @@ def test_auth_page_actions(selenium):
     assert page.profile.text.strip().lower() == "skill factory"
 
 
-def test_auth_page_actions(selenium):
+def test_auth_page_wrong_password_actions(selenium):
     page = MainPage(selenium)
     page.open()
     actions = ActionChains(page._driver)

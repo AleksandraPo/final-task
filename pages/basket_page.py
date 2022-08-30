@@ -1,7 +1,7 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
-from webium import BasePage, Find, Finds
 from urllib.parse import urljoin
+
+from selenium.webdriver.common.by import By
+from webium import BasePage, Find
 
 import config
 

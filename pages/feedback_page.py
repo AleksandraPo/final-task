@@ -1,7 +1,7 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
-from webium import BasePage, Find, Finds
 from urllib.parse import urljoin
+
+from selenium.webdriver.common.by import By
+from webium import BasePage, Find
 
 import config
 
@@ -16,7 +16,7 @@ class FeedBackPage(BasePage):
     )
     feedback = Find(
         by=By.XPATH,
-        value='//form[@id="feedback_form"]//li[contains(text(),"Оставить отзыв о компании")]',
+        value='//div[@id="mCSB_2"]//li/span[contains(text(),"Оставить отзыв о компании")]',
     )
     textarea = Find(by=By.ID, value="feedback_MESSAGE")
     send = Find(by=By.XPATH, value='//form[@id="feedback_form"]//input[@type="submit"]')

@@ -1,7 +1,8 @@
+from urllib.parse import urljoin
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from webium import BasePage, Find, Finds
-from urllib.parse import urljoin
 
 import config
 
@@ -17,7 +18,7 @@ class Item(WebElement):
     image = Find(
         by=By.XPATH, value='.//div[contains(concat(" ", @class, " "), " p_main_img ")]'
     )
-    p_link = Find(by=By.XPATH, value='//a[@class="p_link"]')
+    p_link = Find(by=By.XPATH, value='.//a[@class="p_link"]')
 
 
 class SnowboardPage(BasePage):

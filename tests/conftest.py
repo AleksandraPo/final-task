@@ -1,5 +1,4 @@
 import pytest
-from selenium.webdriver import ActionChains
 
 import config
 from pages.main_page import MainPage
@@ -7,8 +6,8 @@ from pages.main_page import MainPage
 
 @pytest.fixture
 def chrome_options(chrome_options):
-    # chrome_options.add_argument("--headless")
-    # chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=1920,1080")
     # off loading pictures
     prefs = {"profile.managed_default_content_settings.images": 2}
