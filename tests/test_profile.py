@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 import config
-from pages.profile_page import ProfilePage
+from pages.profile import ProfilePage
 
 
 def test_profile_page(authorized_driver):

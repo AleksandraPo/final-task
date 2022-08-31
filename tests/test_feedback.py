@@ -1,6 +1,6 @@
 from selenium.webdriver.common.action_chains import ActionChains
 
-from pages.feedback_page import FeedBackPage
+from pages.feedback import FeedBackPage
 
 
 def test_send_comment(authorized_driver):

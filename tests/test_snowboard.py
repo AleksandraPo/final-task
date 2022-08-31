@@ -5,9 +5,9 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
-from pages.basket_page import BasketPage
-from pages.product_page import ProductPage
-from pages.snowboards_page import SnowboardsPage
+from pages.basket import BasketPage
+from pages.product import ProductPage
+from pages.snowboards import SnowboardsPage
 
 
 def test_basket_with_item(selenium):

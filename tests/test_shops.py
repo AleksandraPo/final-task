@@ -2,7 +2,7 @@ import time
 
 import pytest
 
-from pages.shop_page import ShopsPage, ShopPage
+from pages.shop import ShopsPage, ShopPage
 
 
 @pytest.mark.parametrize(

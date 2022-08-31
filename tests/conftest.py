@@ -1,7 +1,7 @@
 import pytest
 
 import config
-from pages.main_page import MainPage
+from pages.main import MainPage
 
 
 @pytest.fixture

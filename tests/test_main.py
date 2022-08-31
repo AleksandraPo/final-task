@@ -4,14 +4,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 import config
-from pages.main_page import MainPage
+from pages.main import MainPage
 
 
 def test_auth_page(authorized_driver):
     page = MainPage(authorized_driver)
     page.open()
 
-    WebDriverWait(page._driver, 3).until(EC.invisibility_of_element_located(page.lk))
     assert not page.is_element_present("lk", just_in_dom=True)
 
 
@@ -123,7 +122,7 @@ def test_change_city(selenium, code, city):
 
     page.other_region.click()
     page.get_city(code).click()
-    WebDriverWait(page._driver, 3).until(
+    WebDriverWait(page._driver, 10).until(
         EC.invisibility_of_element_located(page.preloader)
     )
     assert city in page.city.text.strip().lower()
