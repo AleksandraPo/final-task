@@ -1,4 +1,7 @@
+import pytest
 from selenium.webdriver import ActionChains
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 import config
 from pages.main_page import MainPage
@@ -8,7 +11,8 @@ def test_auth_page(authorized_driver):
     page = MainPage(authorized_driver)
     page.open()
 
-    assert page.profile.text.strip().lower() == "skill factory"
+    WebDriverWait(page._driver, 3).until(EC.invisibility_of_element_located(page.lk))
+    assert not page.is_element_present("lk", just_in_dom=True)
 
 
 def test_hover_profile_menu(authorized_driver):
@@ -35,11 +39,23 @@ def test_auth_page_actions(selenium):
     actions.click(page.login)
     actions.perform()
 
-    assert page.is_element_present("profile", timeout=3)
-    assert page.profile.text.strip().lower() == "skill factory"
+    WebDriverWait(page._driver, 3).until(EC.invisibility_of_element_located(page.lk))
+    assert not page.is_element_present("lk", just_in_dom=True)
 
 
-def test_auth_page_wrong_password_actions(selenium):
+def test_auth_page_actions_by_phone(selenium):
+    page = MainPage(selenium)
+    page.open()
+
+    page.enter.click()
+    page.phone_input.click()
+    page.phone_input.send_keys(config.PHONE)
+    page.enter_by_phone.click()
+
+    assert page.is_element_present("sent_code", timeout=3)
+
+
+def test_auth_page_actions_with_wrong_password(selenium):
     page = MainPage(selenium)
     page.open()
     actions = ActionChains(page._driver)
@@ -79,3 +95,55 @@ def test_menu(selenium):
     page.open()
     page.btn_menu.click()
     assert page.is_element_present("menu", timeout=3)
+
+
+def test_recall_me(selenium):
+    page = MainPage(selenium)
+    page.open()
+    page.btn_recall.click()
+    assert page.is_element_present("number_form", timeout=3)
+
+
+@pytest.mark.parametrize(
+    "code, city",
+    (
+        ("1", "москва"),
+        ("2", "санкт-петербург"),
+        ("4", "другой город"),
+        ("5", "беларусь"),
+        ("6", "казахстан"),
+        ("7", "другой регион"),
+        ("8", "сочи"),
+        ("9", "екатеринбург"),
+    ),
+)
+def test_change_city(selenium, code, city):
+    page = MainPage(selenium)
+    page.open()
+
+    page.other_region.click()
+    page.get_city(code).click()
+    WebDriverWait(page._driver, 3).until(
+        EC.invisibility_of_element_located(page.preloader)
+    )
+    assert city in page.city.text.strip().lower()
+
+
+@pytest.mark.parametrize(
+    "link",
+    (
+        "/traektoriya-na-paveletskoy",
+        "/traektoriya-stok",
+        "/traektoria-tts-aviapark",
+        "/b-shop",
+        "/surf-style",
+        "/peak",
+    ),
+)
+def test_shop_links(selenium, link):
+    page = MainPage(selenium)
+    page.open()
+
+    links = {s.get_attribute("href") for s in page.shops}
+    assert len(links) == 6
+    assert any(link in l for l in links)

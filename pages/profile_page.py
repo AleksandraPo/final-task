@@ -17,3 +17,14 @@ class ProfilePage(BasePage):
     profile = Find(
         by=By.XPATH, value='//div[contains(concat(" ", @class, " "), " user_login ")]/a'
     )
+    patronymic = Find(by=By.ID, value="secondname")
+    birth_date = Find(by=By.ID, value="birthday")
+    redact = Find(
+        by=By.XPATH, value='//div[@class="user-edit-block"]//a[@href="#account_redact"]'
+    )
+    name_area = Find(by=By.ID, value="firstname")
+    profile_form = Find(by=By.ID, value="account_redact")
+    save_changed_name = Find(
+        by=By.XPATH, value='//input[@name="changePersonalInfo" and @type="submit"]'
+    )
+    check_new_name = Find(by=By.XPATH, value='//div[@class="grid_1"]//b')
